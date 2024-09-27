@@ -28,8 +28,9 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            val keyStoreFile = rootProject.file("local.properties")
             val properties = Properties()
-            properties.load(rootProject.file("local.properties").inputStream())
+            properties.load(keyStoreFile.inputStream())
             signingConfig = signingConfigs.getByName("debug").apply {
                 val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
                 val  allFilesFromDir = File(tmpFilePath).listFiles()
