@@ -34,7 +34,7 @@ runs:
   steps:
     - name: Decode Keystore
       env:
-        ENCODED_STRING: ${{ secrets.BUILD_KEYSTORE }}
+        ENCODED_STRING: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
           TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
