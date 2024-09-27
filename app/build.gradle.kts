@@ -1,3 +1,4 @@
+import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -27,7 +28,21 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug")
+            val properties = Properties()
+            properties.load(rootProject.file("local.properties").inputStream())
+            signingConfig = signingConfigs.getByName("debug").apply {
+                val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+                val  allFilesFromDir = File(tmpFilePath).listFiles()
+
+                if (allFilesFromDir != null) {
+                    val keystoreFile = allFilesFromDir.first()
+                    keystoreFile.renameTo(file(properties.getProperty("storeFile")))
+                }
+                storeFile = file(properties.getProperty("storeFile"))
+                keyAlias = properties.getProperty("keyAlias")
+                keyPassword = properties.getProperty("keyPassword")
+                storePassword = properties.getProperty("storePassword")
+            }
         }
     }
 
