@@ -56,37 +56,37 @@ runs:
         BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
         BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
         BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
-    - name: Build with Gradle
-      shell: bash
-      run: ./gradlew :app:assemble${{ inputs.Build-ENVL }}Release
-    - shell: bash
-      run: |
-        
-        rootDir="./"
-        GRADLE_FILE=$rootDir"app/build.gradle.kts"
-        file=$rootDir"app/build/outputs/apk/${{ inputs.Build-ENVL }}/release/app-${{ inputs.Build-ENVL }}-release.apk"
-        name=Esmorga
-        versionName=$(grep "versionName" $GRADLE_FILE | awk '{print $3}')
-        versionCode=$(grep "versionCode" $GRADLE_FILE | awk '{print $3}')
-        
-        buildHash=$(md5sum $file | awk '{print $4}')
-        
-        project_id=2793
-        api_key=${{ inputs.Build-OTA-APIKEY }}
-        api_key_build=${{ inputs.Build-OTA-APIKEY-BUILD }}
-        visibleClient=true
-        BuildENVL="$(echo ${{ inputs.Build-ENVL }} | tr a-z A-Z )"
-        buildType="$BuildENVL"
-        name="Esmorga [$BuildENVL]"
-        
-        curl -vvv -F "buiFile=@${file}" \
-            -F "buiName=${name}" \
-            -F "buiVersion=${versionName}" \
-            -F "buiBuildNum=${versionCode}" \
-            -F "buiBuildType=${buildType}" \
-            -F "buiTemplate=0" \
-            -F "buiHash=${buildHash}" \
-            -F "buiVisibleClient=${visibleClient}" \
-            -F "buiChangeLog=none" \
-            -F "buiUser=${{ inputs.Build-USER }}" -F "buiPassword=${{ inputs.Build-PASSWORD }}" \
-            "https://otashare-api.mobgen.com/v1/builds/registernewbuild/${project_id}/${api_key}/${api_key_build}"
+#    - name: Build with Gradle
+#      shell: bash
+#      run: ./gradlew :app:assemble${{ inputs.Build-ENVL }}Release
+#    - shell: bash
+#      run: |
+#
+#        rootDir="./"
+#        GRADLE_FILE=$rootDir"app/build.gradle.kts"
+#        file=$rootDir"app/build/outputs/apk/${{ inputs.Build-ENVL }}/release/app-${{ inputs.Build-ENVL }}-release.apk"
+#        name=Esmorga
+#        versionName=$(grep "versionName" $GRADLE_FILE | awk '{print $3}')
+#        versionCode=$(grep "versionCode" $GRADLE_FILE | awk '{print $3}')
+#
+#        buildHash=$(md5sum $file | awk '{print $4}')
+#
+#        project_id=2793
+#        api_key=${{ inputs.Build-OTA-APIKEY }}
+#        api_key_build=${{ inputs.Build-OTA-APIKEY-BUILD }}
+#        visibleClient=true
+#        BuildENVL="$(echo ${{ inputs.Build-ENVL }} | tr a-z A-Z )"
+#        buildType="$BuildENVL"
+#        name="Esmorga [$BuildENVL]"
+#
+#        curl -vvv -F "buiFile=@${file}" \
+#            -F "buiName=${name}" \
+#            -F "buiVersion=${versionName}" \
+#            -F "buiBuildNum=${versionCode}" \
+#            -F "buiBuildType=${buildType}" \
+#            -F "buiTemplate=0" \
+#            -F "buiHash=${buildHash}" \
+#            -F "buiVisibleClient=${visibleClient}" \
+#            -F "buiChangeLog=none" \
+#            -F "buiUser=${{ inputs.Build-USER }}" -F "buiPassword=${{ inputs.Build-PASSWORD }}" \
+#            "https://otashare-api.mobgen.com/v1/builds/registernewbuild/${project_id}/${api_key}/${api_key_build}"
