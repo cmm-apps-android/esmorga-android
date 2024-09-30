@@ -54,11 +54,10 @@ runs:
       shell: bash
       run: ./gradlew app:bundleRelease
       env:
+        BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
         BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
         BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
         BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
-    - name: Upload
-      uses: actions/upload-artifact@v4
     - name: Build with Gradle
       shell: bash
       run: ./gradlew :app:assemble${{ inputs.Build-ENVL }}Release
