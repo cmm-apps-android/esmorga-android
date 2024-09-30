@@ -25,7 +25,7 @@ android {
     }
     signingConfigs {
         create("release") {
-            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid" + "/work/_temp/keystore/"
+            val tmpFilePath = "/Users/p.marino.cortes/" + "/work/_temp/keystore/"
 //            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
             val  allFilesFromDir = File(tmpFilePath).listFiles()
 
