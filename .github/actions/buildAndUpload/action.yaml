@@ -36,6 +36,9 @@ runs:
       env:
 #        ENCODED_STRING: ${{ inputs.Build-KEY-STORE }}
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
+        BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
+        BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
+        BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
       shell: bash
       run: |
           TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
