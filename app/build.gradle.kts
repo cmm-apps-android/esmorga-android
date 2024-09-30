@@ -41,7 +41,7 @@ android {
 ////                storePassword = properties.getProperty("storePassword")
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-            storeFile = file("/home/runner/work/EsmorgaAndroid/EsmorgaAndroid/app/esmorga.keystore.jks")
+            storeFile = file("EsmorgaAndroid/esmorga.keystore.jks")
             keyAlias = System.getenv("BUILD_KEY_ALIAS")
             keyPassword = System.getenv("BUILD_KEY_PASSWORD")
             storePassword = System.getenv("BUILD_STORE_PASSWORD")
