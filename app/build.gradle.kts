@@ -25,8 +25,8 @@ android {
     }
     signingConfigs {
         create("release") {
-//            val tmpFilePath = System.getenv("BUILD_KEYSTORE") + "/work/_temp/keystore/"
-            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
+            val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+//            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
             val  allFilesFromDir = File(tmpFilePath).listFiles()
 
             if (allFilesFromDir != null) {
@@ -42,12 +42,12 @@ android {
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
             storeFile = file("keystore/esmorga.keystore")
-//            keyAlias = System.getenv("BUILD_KEY_ALIAS")
-//            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
-//            storePassword = System.getenv("BUILD_STORE_PASSWORD")
-            keyAlias = "esmorga_android"
-            keyPassword = "64eSMG9!VjLzk5Js"
-            storePassword = "aX74&!Q5esmW6go"
+            keyAlias = System.getenv("BUILD_KEY_ALIAS")
+            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
+            storePassword = System.getenv("BUILD_STORE_PASSWORD")
+//            keyAlias = "esmorga_android"
+//            keyPassword = "64eSMG9!VjLzk5Js"
+//            storePassword = "aX74&!Q5esmW6go"
         }
     }
 
