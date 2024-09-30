@@ -42,12 +42,12 @@ android {
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
             storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore")
-            keyAlias = System.getenv("BUILD_KEY_ALIAS")
-            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
-            storePassword = System.getenv("BUILD_STORE_PASSWORD")
-//            keyAlias = "esmorga_android"
-//            keyPassword = "64eSMG9!VjLzk5Js"
-//            storePassword = "aX74&!Q5esmW6go"
+//            keyAlias = System.getenv("BUILD_KEY_ALIAS")
+//            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
+//            storePassword = System.getenv("BUILD_STORE_PASSWORD")
+            keyAlias = "esmorga_android"
+            keyPassword = "64eSMG9!VjLzk5Js"
+            storePassword = "aX74&!Q5esmW6go"
         }
     }
 
