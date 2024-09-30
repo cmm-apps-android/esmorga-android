@@ -36,7 +36,7 @@ android {
 ////                keyAlias = properties.getProperty("keyAlias")
 ////                keyPassword = properties.getProperty("keyPassword")
 ////                storePassword = properties.getProperty("storePassword")
-            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+//            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
             keyAlias = "esmorga_android"
             keyPassword = "64eSMG9!VjLzk5Js"
             storePassword = "aX74&!Q5esmW6go"
