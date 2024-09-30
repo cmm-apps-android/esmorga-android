@@ -25,7 +25,7 @@ android {
     }
     signingConfigs {
         create("release") {
-            val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+            val tmpFilePath = System.getProperty("user.home") + "/work/_temp/"
             val  allFilesFromDir = File(tmpFilePath).listFiles()
 
             if (allFilesFromDir != null) {
