@@ -31,7 +31,7 @@ android {
 
             if (allFilesFromDir != null) {
                 val keystoreFile = allFilesFromDir.first()
-                keystoreFile.renameTo(file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore"))
+                keystoreFile.renameTo(file("keystore/esmorga.keystore"))
             }
 
 
@@ -41,7 +41,7 @@ android {
 ////                storePassword = properties.getProperty("storePassword")
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore")
+            storeFile = file("keystore/esmorga.keystore")
 //            keyAlias = System.getenv("BUILD_KEY_ALIAS")
 //            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
 //            storePassword = System.getenv("BUILD_STORE_PASSWORD")
