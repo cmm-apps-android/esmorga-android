@@ -23,15 +23,12 @@ android {
             useSupportLibrary = true
         }
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-//            val keyStoreFile = rootProject.file("local.properties")
+//    signingConfigs {
+//        release {
+            //            val keyStoreFile = rootProject.file("local.properties")
 //            val properties = Properties()
 //            properties.load(keyStoreFile.inputStream())
-            signingConfig = signingConfigs.getByName("debug").apply {
+//            signingConfig = signingConfigs.getByName("debug").apply {
                 val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
                 val  allFilesFromDir = File(tmpFilePath).listFiles()
 
@@ -43,11 +40,59 @@ android {
 //                keyAlias = properties.getProperty("keyAlias")
 //                keyPassword = properties.getProperty("keyPassword")
 //                storePassword = properties.getProperty("storePassword")
+//                storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+//                keyAlias = "esmorga_android"
+//                keyPassword = "64eSMG9!VjLzk5Js"
+//                storePassword = "aX74&!Q5esmW6go"
+//        }
+//    }
+//    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+//            val keyStoreFile = rootProject.file("local.properties")
+//            val properties = Properties()
+//            properties.load(keyStoreFile.inputStream())
+            signingConfig = signingConfigs.create("release").apply {
+                //            val keyStoreFile = rootProject.file("local.properties")
+//            val properties = Properties()
+//            properties.load(keyStoreFile.inputStream())
+//            signingConfig = signingConfigs.getByName("debug").apply {
+                val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+                val  allFilesFromDir = File(tmpFilePath).listFiles()
+
+                if (allFilesFromDir != null) {
+                    val keystoreFile = allFilesFromDir.first()
+                    keystoreFile.renameTo(File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks"))
+                }
+////                storeFile = file(properties.getProperty("storeFile"))
+////                keyAlias = properties.getProperty("keyAlias")
+////                keyPassword = properties.getProperty("keyPassword")
+////                storePassword = properties.getProperty("storePassword")
                 storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
                 keyAlias = "esmorga_android"
                 keyPassword = "64eSMG9!VjLzk5Js"
                 storePassword = "aX74&!Q5esmW6go"
             }
+//            signingConfig = signingConfigs.getByName("debug").apply {
+//                val tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+//                val  allFilesFromDir = File(tmpFilePath).listFiles()
+//
+//                if (allFilesFromDir != null) {
+//                    val keystoreFile = allFilesFromDir.first()
+//                    keystoreFile.renameTo(File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks"))
+//                }
+////                storeFile = file(properties.getProperty("storeFile"))
+////                keyAlias = properties.getProperty("keyAlias")
+////                keyPassword = properties.getProperty("keyPassword")
+////                storePassword = properties.getProperty("storePassword")
+//                storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+//                keyAlias = "esmorga_android"
+//                keyPassword = "64eSMG9!VjLzk5Js"
+//                storePassword = "aX74&!Q5esmW6go"
+//            }
         }
     }
 
