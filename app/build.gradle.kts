@@ -25,14 +25,14 @@ android {
     }
     signingConfigs {
         create("release") {
-//            val tmpFilePath = "/Users/p.marino.cortes/" + "/work/_temp/keystore/"
-////            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
-//            val  allFilesFromDir = File(tmpFilePath).listFiles()
-//
-//            if (allFilesFromDir != null) {
-//                val keystoreFile = allFilesFromDir.first()
-//                keystoreFile.renameTo(file("keystore/esmorga.keystore.jks"))
-//            }
+            val tmpFilePath = "/Users/p.marino.cortes/test" + "/work/_temp/keystore/"
+//            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
+            val  allFilesFromDir = File(tmpFilePath).listFiles()
+
+            if (allFilesFromDir != null) {
+                val keystoreFile = allFilesFromDir.first()
+                keystoreFile.renameTo(file("keystore/esmorga.keystore.jks"))
+            }
 
 
 //                storeFile = file(properties.getProperty("storeFile"))
