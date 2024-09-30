@@ -26,12 +26,12 @@ android {
     signingConfigs {
         create("release") {
 //            val tmpFilePath = System.getenv("BUILD_KEYSTORE") + "/work/_temp/keystore/"
-            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks" + "/work/_temp/keystore/"
+            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
             val  allFilesFromDir = File(tmpFilePath).listFiles()
 
             if (allFilesFromDir != null) {
                 val keystoreFile = allFilesFromDir.first()
-                keystoreFile.renameTo(file("esmorga.keystore"))
+                keystoreFile.renameTo(file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore"))
             }
 
 
@@ -41,7 +41,7 @@ android {
 ////                storePassword = properties.getProperty("storePassword")
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore")
 //            keyAlias = System.getenv("BUILD_KEY_ALIAS")
 //            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
 //            storePassword = System.getenv("BUILD_STORE_PASSWORD")
