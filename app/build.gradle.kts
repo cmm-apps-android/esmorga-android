@@ -33,19 +33,20 @@ android {
                 val keystoreFile = allFilesFromDir.first()
                 keystoreFile.renameTo(file("keystore/esmorga.keystore.jks"))
             }
+
 //                storeFile = file(properties.getProperty("storeFile"))
 //                keyAlias = properties.getProperty("keyAlias")
 ////                keyPassword = properties.getProperty("keyPassword")
 ////                storePassword = properties.getProperty("storePassword")
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-            storeFile = file(System.getenv("BUILD_KEYSTORE")?: "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-//            keyAlias = "esmorga_android"
-//            keyPassword = "64eSMG9!VjLzk5Js"
-//            storePassword = "aX74&!Q5esmW6go"
             keyAlias = System.getenv("BUILD_KEY_ALIAS")
             keyPassword = System.getenv("BUILD_KEY_PASSWORD")
             storePassword = System.getenv("BUILD_STORE_PASSWORD")
+            storeFile = file(System.getenv("BUILD_KEYSTORE") ?: "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+//            keyAlias = "esmorga_android"
+//            keyPassword = "64eSMG9!VjLzk5Js"
+//            storePassword = "aX74&!Q5esmW6go"
         }
     }
 
