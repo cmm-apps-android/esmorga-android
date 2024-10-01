@@ -34,16 +34,10 @@ runs:
   steps:
     - name: Decode Keystore
       env:
-#        ENCODED_STRING: ${{ inputs.Build-KEY-STORE }}
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-          TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"/keystore
-          mkdir "${TMP_KEYSTORE_FILE_PATH}"
-          echo $BUILD_KEYSTORE | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/esmorga.keystore.jks
-#      run: |
-#          echo $BUILD_KEYSTORE |
-#          base64 -d esmorga.keystore_base64_encoded.txt > esmorga.keystore.jks
+        echo $CERTIFICATE_BASE64 | base64 --decode > esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
