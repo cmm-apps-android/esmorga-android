@@ -42,7 +42,7 @@ runs:
 #          mkdir "${TMP_KEYSTORE_FILE_PATH}"
 #          echo $BUILD_KEYSTORE | base64 -di > "${TMP_KEYSTORE_FILE_PATH}"/esmorga.keystore.jks
       run: |
-          echo $BUILD_KEYSTORE > keystore-b64.txt
+          echo $BUILD_KEYSTORE > esmorga.keystore_base64_encoded.txt
           base64 -d esmorga.keystore_base64_encoded.txt > esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
