@@ -37,7 +37,7 @@ runs:
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-        echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
+        echo $BUILD_KEYSTORE | base64 -Dd > esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
