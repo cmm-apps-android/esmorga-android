@@ -38,6 +38,7 @@ runs:
       shell: bash
       run: |
         echo $BUILD_KEYSTORE | base64 --decode -i > "${RUNNER_TEMP}"/esmorga.keystore.jks
+        echo "${RUNNER_TEMP}"/esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
