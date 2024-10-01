@@ -38,6 +38,7 @@ runs:
       shell: bash
       run: |
         echo $BUILD_KEYSTORE | base64 --decode -i > esmorga.keystore.jks
+        echo $path esmorga.keystore.jks
     #        TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"
     #        mkdir "${TMP_KEYSTORE_FILE_PATH}"
     #        echo $BUILD_KEYSTORE | base64 --decode -i > "${TMP_KEYSTORE_FILE_PATH}"/esmorga.keystore.jks
