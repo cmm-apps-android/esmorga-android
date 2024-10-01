@@ -26,16 +26,16 @@ android {
     }
     signingConfigs {
         create("release") {
-            val keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
-            val keystoreProperties = Properties()
-            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+//            val keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
+//            val keystoreProperties = Properties()
+//            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 //            val tmpFilePath = "/work/_temp/keystore/"
-//            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
+//            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks" + "/work/_temp/keystore/"
 //            val  allFilesFromDir = File(tmpFilePath).listFiles()
 
 //            if (allFilesFromDir != null) {
 //                val keystoreFile = allFilesFromDir.first()
-//                keystoreFile.renameTo(file("keystore/esmorga.keystore"))
+//                keystoreFile.renameTo(file("keystore/esmorga.keystore.jks"))
 //            }
 
 
@@ -43,17 +43,17 @@ android {
 //                keyAlias = properties.getProperty("keyAlias")
 ////                keyPassword = properties.getProperty("keyPassword")
 ////                storePassword = properties.getProperty("storePassword")
-//            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore")
-//            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore")
+//            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
+//            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 
 //            keyAlias = System.getenv("BUILD_KEY_ALIAS")
 //            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
 //            storePassword = System.getenv("BUILD_STORE_PASSWORD")
-            keyAlias = keystoreProperties["keyAlias"] as String
-            keyPassword = keystoreProperties["keyPassword"] as String
-            storeFile = file(keystoreProperties["storeFile"] as String)
-            storePassword = keystoreProperties["storePassword"] as String
-//            storeFile = file("keystore/esmorga.keystore")
+            keyAlias = System.getenv("BUILD_KEY_ALIAS")
+            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
+            storeFile = file("keystore/esmorga.keystore")
+            storePassword = System.getenv("BUILD_STORE_PASSWORD")
+//            storeFile = file("keystore/esmorga.keystore.jks")
 //            keyAlias = "esmorga_android"
 //            keyPassword = "64eSMG9!VjLzk5Js"
 //            storePassword = "aX74&!Q5esmW6go"
