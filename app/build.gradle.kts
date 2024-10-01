@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -25,6 +26,9 @@ android {
     }
     signingConfigs {
         create("release") {
+            val keystorePropertiesFile = rootProject.file("app/keystore/keystore.properties")
+            val keystoreProperties = Properties()
+            keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 //            val tmpFilePath = "/work/_temp/keystore/"
 //            val tmpFilePath = "/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore" + "/work/_temp/keystore/"
 //            val  allFilesFromDir = File(tmpFilePath).listFiles()
@@ -41,13 +45,18 @@ android {
 ////                storePassword = properties.getProperty("storePassword")
 //            storeFile = File("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
 //            storeFile = file("/Users/p.marino.cortes/EsmorgaAndroid/esmorga.keystore.jks")
-            storeFile = file("../app/keystore/esmorga.keystore.jks")
+
 //            keyAlias = System.getenv("BUILD_KEY_ALIAS")
 //            keyPassword = System.getenv("BUILD_KEY_PASSWORD")
 //            storePassword = System.getenv("BUILD_STORE_PASSWORD")
-            keyAlias = "esmorga_android"
-            keyPassword = "64eSMG9!VjLzk5Js"
-            storePassword = "aX74&!Q5esmW6go"
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = file(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+//            storeFile = file("keystore/esmorga.keystore.jks")
+//            keyAlias = "esmorga_android"
+//            keyPassword = "64eSMG9!VjLzk5Js"
+//            storePassword = "aX74&!Q5esmW6go"
         }
     }
 
