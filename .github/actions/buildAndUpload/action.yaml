@@ -37,7 +37,6 @@ runs:
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-        FILE_TO_CREATE = esmorga.keystore.jks
         echo $BUILD_KEYSTORE | base64 --decode -i > esmorga.keystore.jks
         echo $BUILD_KEYSTORE | base64 --decode -i
     #        TMP_KEYSTORE_FILE_PATH="${RUNNER_TEMP}"
