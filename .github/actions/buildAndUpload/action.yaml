@@ -38,7 +38,7 @@ runs:
       shell: bash
       run: |
         echo $BUILD_KEYSTORE > keystore-b64.txt
-        base64 --decode keystore-b64.txt > $SIGNING_KEY_STORE_PATH
+        base64 --decode keystore-b64.txt > esmorga.keystore.jks
 #        echo $BUILD_KEYSTORE | base64 --decode -i> app/esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
