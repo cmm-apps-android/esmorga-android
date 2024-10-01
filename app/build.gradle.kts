@@ -26,7 +26,8 @@ android {
     }
     signingConfigs {
         create("release") {
-            storeFile = file("esmorga.keystore.jks")
+//            storeFile = file("esmorga.keystore.jks")
+            storeFile = file(System.getenv("BUILD_KEYSTORE"))
             keyAlias = System.getenv("BUILD_KEY_ALIAS")
             keyPassword = System.getenv("BUILD_KEY_PASSWORD")
             storePassword = System.getenv("BUILD_STORE_PASSWORD")
