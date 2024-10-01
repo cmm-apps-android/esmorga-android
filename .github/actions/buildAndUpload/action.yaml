@@ -37,9 +37,7 @@ runs:
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-        TMP_KEYSTORE_FILE_PATH=/home/runner/work/EsmorgaAndroid/EsmorgaAndroid/app
-        mkdir "${TMP_KEYSTORE_FILE_PATH}"
-        echo $BUILD_KEYSTORE | base64 --decode -i > "{TMP_KEYSTORE_FILE_PATH}"/esmorga.keystore.jks
+        echo $BUILD_KEYSTORE | base64 --decode -i > "/home/runner/work"/esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
