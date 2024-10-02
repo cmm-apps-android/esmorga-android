@@ -32,12 +32,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Decode Keystore
-      env:
-        BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
-      shell: bash
-      run: |
-        echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
     - uses: actions/checkout@v4
     - uses: actions/setup-java@v4
       with:
@@ -47,6 +41,13 @@ runs:
     - name: Grant execute permission for gradlew
       shell: bash
       run: chmod +x gradlew
+    - name: Decode Keystore
+      env:
+        BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
+      shell: bash
+      run: |
+        echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
+
     - name: Sign app
       shell: bash
       run: ./gradlew app:bundleRelease
