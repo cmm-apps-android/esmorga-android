@@ -66,7 +66,7 @@ runs:
         BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
         BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
       run: |
-        echo ${{ inputs.Build-STORE-PASSWORD }} 
+        echo pass ${{ inputs.Build-STORE-PASSWORD }} 
         rootDir="./"
         GRADLE_FILE=$rootDir"app/build.gradle.kts"
         file=$rootDir"app/build/outputs/apk/${{ inputs.Build-ENVL }}/release/app-${{ inputs.Build-ENVL }}-release.apk"
