@@ -42,11 +42,11 @@ runs:
       shell: bash
       run: chmod +x gradlew
     - name: Decode Keystore
-#      env:
-#        BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
+      env:
+        BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-        echo ${{ inputs.Build-KEY-STORE }} | base64 --decode > esmorga.keystore.jks
+        echo $BUILD_KEYSTORE | base64 -di > esmorga.keystore.jks
 
 #    - name: Sign app
 #      shell: bash
