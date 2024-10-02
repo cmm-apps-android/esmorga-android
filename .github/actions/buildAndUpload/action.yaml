@@ -52,6 +52,7 @@ runs:
       shell: bash
       run: ./gradlew app:bundleRelease
       env:
+        STORE_FILE_PATH: esmorga.keystore.jks
         BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
         BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
         BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
