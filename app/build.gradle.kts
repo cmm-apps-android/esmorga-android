@@ -26,7 +26,7 @@ android {
         val keystoreFile: String by project
         create("release") {
 //            storeFile = file(keystoreFile)
-            storeFile = file("${System.getProperty("user.home")}/work/EsmorgaAndroid/EsmorgaAndroid//esmorga.keystore.jks")
+            storeFile = file("${System.getProperty("user.home")}/work/EsmorgaAndroid/EsmorgaAndroid/esmorga.keystore.jks")
             keyAlias = System.getenv("BUILD_KEY_ALIAS")
             keyPassword = System.getenv("BUILD_KEY_PASSWORD")
             storePassword = System.getenv("BUILD_STORE_PASSWORD")
