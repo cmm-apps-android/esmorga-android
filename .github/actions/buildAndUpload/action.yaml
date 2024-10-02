@@ -48,14 +48,14 @@ runs:
       run: |
         echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
 
-#    - name: Sign app
-#      shell: bash
-#      run: ./gradlew app:bundleRelease
-#      env:
-##        STORE_FILE_PATH: esmorga.keystore.jks
-#        BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
-#        BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
-#        BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
+    - name: Sign app
+      shell: bash
+      run: ./gradlew app:bundleRelease
+      env:
+#        STORE_FILE_PATH: esmorga.keystore.jks
+        BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
+        BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
+        BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
     - name: Build with Gradle
       shell: bash
       env:
