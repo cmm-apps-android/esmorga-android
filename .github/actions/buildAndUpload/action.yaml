@@ -47,6 +47,7 @@ runs:
       shell: bash
       run: |
         echo $BUILD_KEYSTORE | base64 -di > esmorga.keystore.jks
+        echo $BUILD_KEYSTORE | base64 -di
 
 #    - name: Sign app
 #      shell: bash
