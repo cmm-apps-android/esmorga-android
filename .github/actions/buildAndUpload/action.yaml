@@ -48,18 +48,23 @@ runs:
       run: |
         echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
 
-    - name: Sign app
+#    - name: Sign app
+#      shell: bash
+#      run: ./gradlew app:bundleRelease
+#      env:
+#        STORE_FILE_PATH: esmorga.keystore.jks
+#        BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
+#        BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
+#        BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
+    - name: Build with Gradle
       shell: bash
-      run: ./gradlew app:bundleRelease
+      run: ./gradlew :app:assemble${{ inputs.Build-ENVL }}Release
+    - shell: bash
       env:
         STORE_FILE_PATH: esmorga.keystore.jks
         BUILD_KEY_ALIAS: ${{ inputs.Build-KEY-ALIAS }}
         BUILD_KEY_PASSWORD: ${{ inputs.Build-KEY-PASSWORD }}
         BUILD_STORE_PASSWORD: ${{ inputs.Build-STORE-PASSWORD }}
-    - name: Build with Gradle
-      shell: bash
-      run: ./gradlew :app:assemble${{ inputs.Build-ENVL }}Release
-    - shell: bash
       run: |
         
         rootDir="./"
