@@ -46,7 +46,7 @@ runs:
         BUILD_KEYSTORE: ${{ inputs.Build-KEY-STORE }}
       shell: bash
       run: |
-        echo $BUILD_KEYSTORE | base64 --decode > esmorga.keystore.jks
+        echo $BUILD_KEYSTORE | base64 --decode > "../"/esmorga.keystore.jks
 
     - name: Sign app
       shell: bash
