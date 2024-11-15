@@ -10,12 +10,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -31,6 +35,7 @@ import cmm.apps.esmorga.view.home.BottomNavItem
 import cmm.apps.esmorga.view.home.BottomNavItemRoute
 import cmm.apps.esmorga.view.home.EsmorgaBottomBar
 import cmm.apps.esmorga.view.navigation.EsmorgaNavigationGraph
+import cmm.apps.esmorga.view.navigation.TopBarUiState
 import cmm.apps.esmorga.view.theme.EsmorgaTheme
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -66,24 +71,36 @@ class MainActivity : ComponentActivity() {
         setContent {
             EsmorgaTheme {
                 val navigationController = rememberNavController()
+                var appBarState by remember { mutableStateOf(TopBarUiState(isVisible = true, title = "initial")) }
+
                 val bottomNavItems = listOf(
                     BottomNavItem.Explore,
                     BottomNavItem.MyEvents,
                     BottomNavItem.Profile
                 )
 
-                HomeView(bottomNavItems, navigationController) {
-                    EsmorgaNavigationGraph(navigationController = navigationController, loggedIn)
+                HomeView(bottomNavItems, navigationController, appBarState) {
+                    EsmorgaNavigationGraph(navigationController = navigationController, loggedIn) {
+                        appBarState = it
+                    }
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostController, content: @Composable () -> Unit) {
+fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostController, appBarState: TopBarUiState, content: @Composable (TopBarUiState) -> Unit) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                navigationIcon = appBarState.navigationIcon,
+                title = { Text(text = appBarState.title) },
+                actions = appBarState.actions
+            )
+        },
         bottomBar = {
             val navBackStackEntry by navigationController.currentBackStackEntryAsState()
             val currentRoute =
@@ -99,7 +116,7 @@ fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostC
                 bottom = innerPadding.calculateBottomPadding(),
             )
         ) {
-            content.invoke()
+            content.invoke(appBarState)
         }
     }
 }
