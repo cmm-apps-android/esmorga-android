@@ -67,6 +67,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     private fun setupNavigation(loggedIn: Boolean) {
         setContent {
             EsmorgaTheme {
@@ -79,44 +80,36 @@ class MainActivity : ComponentActivity() {
                     BottomNavItem.Profile
                 )
 
-                HomeView(bottomNavItems, navigationController, appBarState) {
-                    EsmorgaNavigationGraph(navigationController = navigationController, loggedIn) {
-                        appBarState = it
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        TopAppBar(
+                            navigationIcon = appBarState.navigationIcon,
+                            title = { Text(text = appBarState.title) },
+                            actions = appBarState.actions
+                        )
+                    },
+                    bottomBar = {
+                        val navBackStackEntry by navigationController.currentBackStackEntryAsState()
+                        val currentRoute =
+                            navBackStackEntry?.destination?.hierarchy?.first()?.route?.substringAfterLast(".")
+                        val route = bottomNavItems.find { currentRoute == it.route.screen }?.route
+
+                        val visibility = route != null
+                        HomeBottomBar(bottomNavItems, visibility, navigationController, route)
+                    }
+                ) { innerPadding ->
+                    Box(
+                        modifier = Modifier.padding(
+                            bottom = innerPadding.calculateBottomPadding(),
+                        )
+                    ) {
+                        EsmorgaNavigationGraph(navigationController = navigationController, loggedIn) {
+                            appBarState = it
+                        }
                     }
                 }
             }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostController, appBarState: TopBarUiState, content: @Composable (TopBarUiState) -> Unit) {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        topBar = {
-            TopAppBar(
-                navigationIcon = appBarState.navigationIcon,
-                title = { Text(text = appBarState.title) },
-                actions = appBarState.actions
-            )
-        },
-        bottomBar = {
-            val navBackStackEntry by navigationController.currentBackStackEntryAsState()
-            val currentRoute =
-                navBackStackEntry?.destination?.hierarchy?.first()?.route?.substringAfterLast(".")
-            val route = bottomNavItems.find { currentRoute == it.route.screen }?.route
-
-            val visibility = route != null
-            HomeBottomBar(bottomNavItems, visibility, navigationController, route)
-        }
-    ) { innerPadding ->
-        Box(
-            modifier = Modifier.padding(
-                bottom = innerPadding.calculateBottomPadding(),
-            )
-        ) {
-            content.invoke(appBarState)
         }
     }
 }
