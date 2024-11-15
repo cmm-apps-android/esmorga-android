@@ -24,6 +24,7 @@ import cmm.apps.esmorga.view.errors.model.EsmorgaErrorScreenArguments
 import cmm.apps.esmorga.view.eventdetails.EventDetailsScreen
 import cmm.apps.esmorga.view.eventlist.EventListScreen
 import cmm.apps.esmorga.view.eventlist.MyEventListScreen
+import cmm.apps.esmorga.view.eventlist.model.EventListUiModel
 import cmm.apps.esmorga.view.login.LoginScreen
 import cmm.apps.esmorga.view.navigation.HomeScreenTestTags.PROFILE__TITLE
 import cmm.apps.esmorga.view.registration.RegistrationScreen
@@ -62,9 +63,9 @@ sealed class Navigation {
 const val GOOGLE_MAPS_PACKAGE = "com.google.android.apps.maps"
 
 @Composable
-fun EsmorgaNavigationGraph(navigationController: NavHostController, loggedIn: Boolean, onComposingAppBar: (TopBarUiState) -> Unit) {
+fun EsmorgaNavigationGraph(navigationController: NavHostController, loggedIn: Boolean) {
     val startDestination = if (loggedIn) Navigation.EventListScreen else Navigation.WelcomeScreen
-    EsmorgaNavHost(navigationController, startDestination, onComposingAppBar)
+    EsmorgaNavHost(navigationController, startDestination)
 }
 
 /**
@@ -72,9 +73,9 @@ fun EsmorgaNavigationGraph(navigationController: NavHostController, loggedIn: Bo
  * */
 @VisibleForTesting
 @Composable
-internal fun EsmorgaNavHost(navigationController: NavHostController, startDestination: Navigation, onComposingAppBar: (TopBarUiState) -> Unit) {
+internal fun EsmorgaNavHost(navigationController: NavHostController, startDestination: Navigation) {
     NavHost(navigationController, startDestination = startDestination) {
-        loginFlow(navigationController, onComposingAppBar)
+        loginFlow(navigationController)
         homeFlow(navigationController)
         errorFlow(navigationController)
     }
@@ -116,7 +117,7 @@ private fun NavGraphBuilder.homeFlow(navigationController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.loginFlow(navigationController: NavHostController, onComposingAppBar: (TopBarUiState) -> Unit) {
+private fun NavGraphBuilder.loginFlow(navigationController: NavHostController) {
     composable<Navigation.WelcomeScreen> {
         WelcomeScreen(
             onEnterAsGuestClicked = {
@@ -129,7 +130,6 @@ private fun NavGraphBuilder.loginFlow(navigationController: NavHostController, o
             onLoginRegisterClicked = {
                 navigationController.navigate(Navigation.LoginScreen)
             })
-        onComposingAppBar(TopBarUiState(isVisible = true, title = "WelcomeScreen"))
     }
     composable<Navigation.LoginScreen> {
         LoginScreen(
@@ -149,7 +149,6 @@ private fun NavGraphBuilder.loginFlow(navigationController: NavHostController, o
             onBackClicked = {
                 navigationController.popBackStack()
             })
-        onComposingAppBar(TopBarUiState(isVisible = true, title = "Login"))
     }
     composable<Navigation.RegistrationScreen> {
         RegistrationScreen(

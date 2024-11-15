@@ -10,16 +10,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -35,7 +31,6 @@ import cmm.apps.esmorga.view.home.BottomNavItem
 import cmm.apps.esmorga.view.home.BottomNavItemRoute
 import cmm.apps.esmorga.view.home.EsmorgaBottomBar
 import cmm.apps.esmorga.view.navigation.EsmorgaNavigationGraph
-import cmm.apps.esmorga.view.navigation.TopBarUiState
 import cmm.apps.esmorga.view.theme.EsmorgaTheme
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -67,49 +62,44 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     private fun setupNavigation(loggedIn: Boolean) {
         setContent {
             EsmorgaTheme {
                 val navigationController = rememberNavController()
-                var appBarState by remember { mutableStateOf(TopBarUiState(isVisible = true, title = "initial")) }
-
                 val bottomNavItems = listOf(
                     BottomNavItem.Explore,
                     BottomNavItem.MyEvents,
                     BottomNavItem.Profile
                 )
 
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    topBar = {
-                        TopAppBar(
-                            navigationIcon = appBarState.navigationIcon,
-                            title = { Text(text = appBarState.title) },
-                            actions = appBarState.actions
-                        )
-                    },
-                    bottomBar = {
-                        val navBackStackEntry by navigationController.currentBackStackEntryAsState()
-                        val currentRoute =
-                            navBackStackEntry?.destination?.hierarchy?.first()?.route?.substringAfterLast(".")
-                        val route = bottomNavItems.find { currentRoute == it.route.screen }?.route
-
-                        val visibility = route != null
-                        HomeBottomBar(bottomNavItems, visibility, navigationController, route)
-                    }
-                ) { innerPadding ->
-                    Box(
-                        modifier = Modifier.padding(
-                            bottom = innerPadding.calculateBottomPadding(),
-                        )
-                    ) {
-                        EsmorgaNavigationGraph(navigationController = navigationController, loggedIn) {
-                            appBarState = it
-                        }
-                    }
+                HomeView(bottomNavItems, navigationController) {
+                    EsmorgaNavigationGraph(navigationController = navigationController, loggedIn)
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostController, content: @Composable () -> Unit) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            val navBackStackEntry by navigationController.currentBackStackEntryAsState()
+            val currentRoute =
+                navBackStackEntry?.destination?.hierarchy?.first()?.route?.substringAfterLast(".")
+            val route = bottomNavItems.find { currentRoute == it.route.screen }?.route
+
+            val visibility = route != null
+            HomeBottomBar(bottomNavItems, visibility, navigationController, route)
+        }
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier.padding(
+                bottom = innerPadding.calculateBottomPadding(),
+            )
+        ) {
+            content.invoke()
         }
     }
 }
