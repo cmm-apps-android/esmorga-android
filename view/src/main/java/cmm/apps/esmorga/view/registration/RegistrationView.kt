@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -73,7 +74,7 @@ fun RegistrationScreen(
     LaunchedEffect(Unit) {
         scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
             IconButton(onClick = { onBackClicked() }) {
-                Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Back")
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
             }
         }))
     }
