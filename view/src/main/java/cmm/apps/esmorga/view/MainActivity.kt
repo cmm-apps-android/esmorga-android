@@ -33,7 +33,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -114,8 +113,7 @@ fun HomeView(bottomNavItems: List<BottomNavItem>, navigationController: NavHostC
         },
         bottomBar = {
             val navBackStackEntry by navigationController.currentBackStackEntryAsState()
-            val currentRoute =
-                navBackStackEntry?.destination?.hierarchy?.first()?.route?.substringAfterLast(".")
+            val currentRoute = navBackStackEntry?.destination?.route?.substringAfterLast(".")
             val route = bottomNavItems.find { currentRoute == it.route.screen }?.route
 
             val visibility = route != null
