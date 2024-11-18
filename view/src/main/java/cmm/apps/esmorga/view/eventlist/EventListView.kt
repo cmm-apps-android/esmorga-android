@@ -1,5 +1,6 @@
 package cmm.apps.esmorga.view.eventlist
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,14 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import cmm.apps.designsystem.EsmorgaButton
 import cmm.apps.designsystem.EsmorgaLinearLoader
 import cmm.apps.designsystem.EsmorgaText
@@ -47,75 +44,61 @@ import cmm.apps.esmorga.view.eventlist.model.EventListEffect
 import cmm.apps.esmorga.view.eventlist.model.EventListUiModel
 import cmm.apps.esmorga.view.eventlist.model.EventListUiState
 import cmm.apps.esmorga.view.extensions.observeLifecycleEvents
-import cmm.apps.esmorga.view.theme.EsmorgaTheme
+import cmm.apps.esmorga.view.navigation.ScaffoldViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Screen
 @Composable
-fun EventListScreen(elvm: EventListViewModel = koinViewModel(), onEventClick: (event: Event) -> Unit) {
+fun EventListScreen(
+    elvm: EventListViewModel = koinViewModel(),
+    scaffoldViewModel: ScaffoldViewModel = viewModel(LocalContext.current as ComponentActivity),
+    onEventClick: (event: Event) -> Unit
+) {
     val uiState: EventListUiState by elvm.uiState.collectAsStateWithLifecycle()
 
     val message = stringResource(R.string.snackbar_no_internet)
-    val snackbarHostState = remember { SnackbarHostState() }
-    val localCoroutineScope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
 
     elvm.observeLifecycleEvents(lifecycle)
     LaunchedEffect(Unit) {
         elvm.effect.collect { eff ->
             when (eff) {
-                is EventListEffect.ShowNoNetworkPrompt -> {
-                    localCoroutineScope.launch {
-                        snackbarHostState.showSnackbar(message = message)
-                    }
-                }
-
+                is EventListEffect.ShowNoNetworkPrompt -> scaffoldViewModel.showSnackbar(message)
                 is EventListEffect.NavigateToEventDetail -> onEventClick(eff.event)
             }
         }
     }
 
-    EsmorgaTheme {
-        EventListView(
-            uiState = uiState,
-            snackbarHostState = snackbarHostState,
-            onRetryClick = { elvm.loadEvents() },
-            onEventClick = { elvm.onEventClick(it) }
-        )
-    }
+    LaunchedEffect(Unit) { scaffoldViewModel.setUpTopBar(null) }
+
+    EventListView(
+        uiState = uiState,
+        onRetryClick = { elvm.loadEvents() },
+        onEventClick = { elvm.onEventClick(it) }
+    )
 }
 
 @Composable
-fun EventListView(uiState: EventListUiState, snackbarHostState: SnackbarHostState, onRetryClick: () -> Unit, onEventClick: (event: EventListUiModel) -> Unit) {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        snackbarHost = { SnackbarHost(snackbarHostState) }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier.padding(
-                top = innerPadding.calculateTopPadding(),
-            )
-        ) {
-            EsmorgaText(
-                text = stringResource(R.string.screen_event_list_title),
-                style = EsmorgaTextStyle.HEADING_1,
-                modifier = Modifier
-                    .padding(vertical = 32.dp, horizontal = 16.dp)
-                    .testTag(EVENT_LIST_TITLE)
-            )
-            if (uiState.loading) {
-                EventListLoading()
+fun EventListView(uiState: EventListUiState, onRetryClick: () -> Unit, onEventClick: (event: EventListUiModel) -> Unit) {
+    Column {
+        EsmorgaText(
+            text = stringResource(R.string.screen_event_list_title),
+            style = EsmorgaTextStyle.HEADING_1,
+            modifier = Modifier
+                .padding(vertical = 32.dp, horizontal = 16.dp)
+                .testTag(EVENT_LIST_TITLE)
+        )
+        if (uiState.loading) {
+            EventListLoading()
+        } else {
+            if (uiState.error.isNullOrBlank().not()) {
+                EventListError(onRetryClick)
+            } else if (uiState.eventList.isEmpty()) {
+                EventListEmpty()
             } else {
-                if (uiState.error.isNullOrBlank().not()) {
-                    EventListError(onRetryClick)
-                } else if (uiState.eventList.isEmpty()) {
-                    EventListEmpty()
-                } else {
-                    EventList(uiState.eventList, onEventClick, modifier = Modifier.padding(horizontal = 16.dp))
-                }
+                EventList(uiState.eventList, onEventClick, modifier = Modifier.padding(horizontal = 16.dp))
             }
         }
     }
