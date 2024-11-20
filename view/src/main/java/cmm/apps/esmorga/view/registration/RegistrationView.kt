@@ -71,13 +71,11 @@ fun RegistrationScreen(
         }
     }
 
-    LaunchedEffect(Unit) {
-        scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
-            IconButton(onClick = { onBackClicked() }) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-            }
-        }))
-    }
+    scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
+        IconButton(onClick = { onBackClicked() }) {
+            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+        }
+    }))
 
     RegistrationView(
         uiState = uiState,

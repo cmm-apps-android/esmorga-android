@@ -73,16 +73,14 @@ fun EventDetailsScreen(
         }
     }
 
-    LaunchedEffect(Unit) {
-        scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
-            IconButton(onClick = { onBackPressed() }, modifier = Modifier.testTag(EVENT_DETAILS_BACK_BUTTON)) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.content_description_back_icon)
-                )
-            }
-        }))
-    }
+    scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
+        IconButton(onClick = { onBackPressed() }, modifier = Modifier.testTag(EVENT_DETAILS_BACK_BUTTON)) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.content_description_back_icon)
+            )
+        }
+    }))
 
     EventDetailsView(
         uiState = uiState,
@@ -98,7 +96,9 @@ fun EventDetailsView(
     onNavigateClicked: () -> Unit,
     onPrimaryButtonClicked: () -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize().verticalScroll(state = rememberScrollState())) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .verticalScroll(state = rememberScrollState())) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(uiState.image)

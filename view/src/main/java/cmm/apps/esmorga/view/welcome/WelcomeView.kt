@@ -50,7 +50,7 @@ fun WelcomeScreen(
         }
     }
 
-    LaunchedEffect(Unit) { scaffoldViewModel.setUpTopBar(null) }
+    scaffoldViewModel.setUpTopBar(null)
 
     WelcomeView(uiState = uiState, onPrimaryButtonClicked = { wvm.onPrimaryButtonClicked() }, onSecondaryButtonClicked = { wvm.onSecondaryButtonClicked() })
 }

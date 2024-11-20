@@ -74,16 +74,14 @@ fun LoginScreen(
         }
     }
 
-    LaunchedEffect(Unit) {
-        scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
-            IconButton(onClick = { onBackClicked() }, modifier = Modifier.testTag(EVENT_DETAILS_BACK_BUTTON)) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = stringResource(R.string.content_description_back_icon)
-                )
-            }
-        }))
-    }
+    scaffoldViewModel.setUpTopBar(TopBarUiState(navigationIcon = {
+        IconButton(onClick = { onBackClicked() }, modifier = Modifier.testTag(EVENT_DETAILS_BACK_BUTTON)) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.content_description_back_icon)
+            )
+        }
+    }))
 
     LoginView(
         uiState = uiState,

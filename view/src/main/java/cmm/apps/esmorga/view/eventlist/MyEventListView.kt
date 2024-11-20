@@ -62,7 +62,7 @@ fun MyEventListScreen(
         }
     }
 
-    LaunchedEffect(Unit) { scaffoldViewModel.setUpTopBar(null) }
+    scaffoldViewModel.setUpTopBar(null)
 
     MyEventListView(
         uiState = uiState,
