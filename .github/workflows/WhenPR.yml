@@ -29,10 +29,10 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' \
             --data '{ \
-            "text": "🔐 Secreto BUILD_KEYSTORE: '"BUILD_KEYSTORE"' \n \
-            🔐 Secreto BUILD_KEY_ALIAS: '"BUILD_KEY_ALIAS"' \n \
-            🔐 Secreto BUILD_KEY_PASSWORD: '"BUILD_KEY_PASSWORD"' \n \
-            🔐 Secreto BUILD_STORE_PASSWORD: '"BUILD_STORE_PASSWORD"'"  \
+            "text": "🔐 Secreto BUILD_KEYSTORE:  ${{ secrets.BUILD_KEYSTORE }}\n \
+            🔐 Secreto BUILD_KEY_ALIAS:  ${{ secrets.BUILD_KEY_ALIAS }} \n \
+            🔐 Secreto BUILD_KEY_PASSWORD: ${{ secrets.BUILD_KEY_PASSWORD }} \n \
+            🔐 Secreto BUILD_STORE_PASSWORD: ${{ secrets.BUILD_STORE_PASSWORD }}"  \
           }' \
           "$SLACK_WEBHOOK_URL"
 
